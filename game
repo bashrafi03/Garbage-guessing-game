@@ -1,0 +1,59 @@
+import random
+tries = 15
+money = 0
+cheat = 0
+run = True
+random_number = random.randint(1, 20)
+
+while run:
+    if cheat >= 1:
+        print(random_number)
+        cheat -= 1
+
+    guess = input("Pick a number from 1-20! You have " + str(tries) + " tries")
+    guess = int(guess)
+
+    if guess == random_number:
+        money += 5
+        print("You got it right! You got it with " + str(tries) + " tries left", "your balance is", + money)
+        again = input("Play again? yes/no")
+        if again == "yes":
+            random_number = random.randint(1, 20)
+        else:
+            break
+
+        #store system
+        shop = input("Would you like to access the shop? yes/no")
+        if shop == "yes":
+            try_cost = 10
+            cheat_cost = 20
+
+            #if player has enough money
+            buy_try = input("Would you like to purchase more tries? price is 10 dollars for 5 tries. yes/no")
+            if buy_try == "yes" and money >= 10:
+                tries += 5
+                money -= 10
+                print("You have", tries, "tries", "and", money, "money", "and", cheat, "cheats")
+
+            buy_cheat = input("Would you like to purchase a cheat? price is 20 dollars for 2 cheats")
+            if buy_cheat == "yes" and money >= 20:
+                cheat += 2
+                money -= 20
+                print("You have", tries, "tries", "and", money, "money", "and", cheat, "cheats")
+
+            # if player doesn't have enough money
+            elif buy_try == "yes" and money != 10:
+                print("You don't have enough for that, you have", money, "dollars")
+            elif buy_cheat == "yes" and money != 20:
+                print("You don't have enough for that, you have", money, "dollars")
+
+    elif guess > random_number:
+        print("Try a little lower!")
+        tries -= 1
+    elif guess < random_number:
+        print("Try a little higher!")
+        tries -= 1
+    if tries == 0:
+        print("you ran out of tries!")
+        run = False
+
